@@ -14,6 +14,8 @@ module.exports = function(app, Contact)
         Contact.findOne({FacebookID: req.params.FacebookID}, function(err, contact){
             if(err) return res.status(500).json({error: err});
             if(!contact) return res.status(404).json({'first': true});
+
+            console.log("Get all contact! " + contacts.toString());
             res.json(contact);
         })
     });
@@ -41,12 +43,14 @@ module.exports = function(app, Contact)
         contact.FacebookID = req.body.FacebookID;
         contact.name = req.body.name;
         contact.phoneNumber = req.body.phoneNumber;
+        contact.stage = req.body.stage;
         contact.save(function(err){
             if(err){
                 console.error(err);
                 res.json({result: 0});
                 return;
             }
+            console.log("Create new contact! name: " + contact.name + ", number : "+ contact.phoneNumber);
             res.json({result: 1});
         });
     });
@@ -57,10 +61,11 @@ module.exports = function(app, Contact)
             if(err) return res.status(500).json({error: err});
             if(!contact) return res.status(404).json({error: 'contact not found'});
 
-            if(req.body.kakaoID) contact.FacebookID = req.body.FacebookID;
+            if(req.body.FacebookID) contact.FacebookID = req.body.FacebookID;
             if(req.body.phoneNumber) contact.phoneNumber = req.body.phoneNumber;
             if(req.body.name) contact.name = req.body.name;
-
+            if(req.body.stage) contact.stage = req.body.stage;
+            
             contact.save(function(err){
                 if(err) res.status(500).json({error: 'failed to update'});
                 res.json({message: 'contact updated'});
@@ -79,7 +84,7 @@ module.exports = function(app, Contact)
     // });
 
     // DELETE CONTACT
-    app.delete('/api/contacts/:kakaoID', function(req, res){
+    app.delete('/api/contacts/:FacebookID', function(req, res){
         Contact.remove({ FacebookID: req.params.FacebookID }, function(err, output){
             if(err) return res.status(500).json({ error: "database failure" });
 
@@ -93,3 +98,4 @@ module.exports = function(app, Contact)
     });
 
 }
+

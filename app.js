@@ -32,7 +32,7 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 
-mongoose.connect('mongodb://localhost/second_project');
+mongoose.connect('mongodb://localhost/Week2Server');
 
 // DEFINE MODEL
 
