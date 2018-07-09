@@ -1,4 +1,4 @@
-module.exports = function(app, Pic, Contact, Joongo)
+module.exports = function(app, Pic, Contact)
 {
     app.get('/api/contacts', function(req, res){
         Contact.find(function(err, list){
