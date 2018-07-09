@@ -27,4 +27,4 @@ mongoose.connect('mongodb://localhost/pics');
 var Pic = require("./models/pic");
 var Contact = require("./models/contact")
 
-var router = require('./routes')(app, Pic, Contact, Joongo);
+var router = require('./routes')(app, Pic, Contact);
