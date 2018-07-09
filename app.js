@@ -1,30 +1,44 @@
 // app.js
-// The main file for the server
 
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-// var bb = require('express-busboy');
-var mongoose = require("mongoose");
+// [LOAD PACKAGES]
+var express     = require('express');
+var app         = express();
+var bodyParser  = require('body-parser');
+var mongoose    = require('mongoose');
+var Contact = require('./models/contact');
+var Image = require('./models/image');
 
-app.use(bodyParser.urlencoded({extended: true, limit: '50mb' }));
-app.use(bodyParser.json({limit: '50mb'}));
+// [CONFIGURE APP TO USE bodyParser]
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
+app.use(bodyParser.json({limit: '5mb'}));
 
+// app.use(express.static(__dirname + '/public'));
+// app.use('/contacts', Contact)
+// app.use('/images', Image)
+// [CONFIGURE SERVER PORT]
 var port = process.env.PORT || 3000;
 
-var server = app.listen(port, function(){
-    console.log("Express server started on port " + port);
-});
+// [CONFIGURE ROUTER]
+var contactRouter = require('./routes/contact')(app, Contact);
+var imageRouter = require('./routes/image')(app, Image);
 
+// [ CONFIGURE mongoose ]
+
+// CONNECT TO MONGODB SERVER
 var db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', function(){
-    console.log('connected to mongod server');
+    // CONNECTED TO MONGODB SERVER
+    console.log("Connected to mongod server");
 });
 
-mongoose.connect('mongodb://localhost/pics');
+mongoose.connect('mongodb://localhost/second_project');
 
-var Pic = require("./models/pic");
-var Contact = require("./models/contact")
+// DEFINE MODEL
 
-var router = require('./routes')(app, Pic, Contact);
+
+// [RUN SERVER]
+var server = app.listen(port, function(){
+ console.log("Express server has started on port " + port)
+});
+

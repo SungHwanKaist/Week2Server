@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema
+var Schema = mongoose.Schema;
 
 var contactSchema = new Schema({
-    name: String,
+	FacebookID: String,
     phoneNumber: String,
+    stage: String,
+    name: String
 });
+
+
 
 module.exports = mongoose.model('contact', contactSchema);
