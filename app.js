@@ -38,7 +38,7 @@ mongoose.connect('mongodb://localhost/Week2Server');
 
 
 // [RUN SERVER]
-var server = app.listen(port, function(){
+var server = app.listen(port, '0.0.0.0', function(){
  console.log("Express server has started on port " + port)
 });
 

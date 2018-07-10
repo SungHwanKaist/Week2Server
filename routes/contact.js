@@ -43,7 +43,6 @@ module.exports = function(app, Contact)
         contact.FacebookID = req.body.FacebookID;
         contact.name = req.body.name;
         contact.phoneNumber = req.body.phoneNumber;
-        contact.stage = req.body.stage;
         contact.save(function(err){
             if(err){
                 console.error(err);
@@ -64,7 +63,6 @@ module.exports = function(app, Contact)
             if(req.body.FacebookID) contact.FacebookID = req.body.FacebookID;
             if(req.body.phoneNumber) contact.phoneNumber = req.body.phoneNumber;
             if(req.body.name) contact.name = req.body.name;
-            if(req.body.stage) contact.stage = req.body.stage;
             
             contact.save(function(err){
                 if(err) res.status(500).json({error: 'failed to update'});

@@ -22,7 +22,6 @@ module.exports = function(app, Image)
     app.post('/api/images', function(req, res) {
         var image = new Image();
         image.FacebookID = req.body.FacebookID;
-        image.stage = req.body.stage;
         image.imageStr = req.body.imageStr;
 
         image.save(function(err) {
